@@ -4,17 +4,30 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:machine_test/controller/todo_controller.dart';
 
 class TodoDetails extends StatelessWidget {
   const TodoDetails({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var arg = Get.arguments;
-    print(arg);
+    var arg = Get.arguments['todo'];
+    var index = Get.arguments['index'];
+    var todo = Get.find<TodoController>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () {
+              todo.todo.remove(arg);
+
+              Get.back();
+              Get.snackbar('Deleted', 'Item Deleted');
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -33,39 +46,39 @@ class TodoDetails extends StatelessWidget {
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
                       children: [
-                        Text(
+                        const Text(
                           'Title: ',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         Text(arg.title.toString(),
-                            style: TextStyle(color: Colors.white)),
+                            style: const TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
                       children: [
-                        Text(
+                        const Text(
                           'Description : ',
                           style: TextStyle(color: Colors.white),
                         ),
                         Text(arg.description.toString(),
-                            style: TextStyle(color: Colors.white)),
+                            style: const TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
                       children: [
-                        Text(
+                        const Text(
                           'Status : ',
                           style: TextStyle(color: Colors.white),
                         ),
@@ -73,23 +86,23 @@ class TodoDetails extends StatelessWidget {
                             arg.completed == false
                                 ? 'Not Completed'
                                 : 'Completed',
-                            style: TextStyle(color: Colors.white)),
+                            style: const TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 5,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Row(
                       children: [
-                        Text(
+                        const Text(
                           'Duration : ',
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                         ),
                         Text(arg.duration.toString(),
-                            style: TextStyle(color: Colors.white)),
+                            style: const TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),
@@ -100,9 +113,7 @@ class TodoDetails extends StatelessWidget {
           TweenAnimationBuilder<Duration>(
               duration: arg.duration,
               tween: Tween(begin: arg.duration, end: Duration.zero),
-              onEnd: () {
-                print('Timer ended');
-              },
+              onEnd: () {},
               builder: (BuildContext context, Duration value, Widget? child) {
                 final minutes = value.inMinutes;
                 final seconds = value.inSeconds % 60;
@@ -110,11 +121,28 @@ class TodoDetails extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Text('$minutes:$seconds',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 30)));
               }),
+          InkWell(
+            onTap: (() {
+              todo.todo[index].completed = !todo.todo[index].completed;
+              //Get.back();
+              Get.snackbar('Updated', 'Status Updated');
+            }),
+            child: Container(
+              height: 30,
+              width: Get.width*0.7,
+              alignment: Alignment.center,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                color: Colors.grey
+              ),
+              child: const Text('Mark Completed', style: TextStyle(color: Colors.white),),
+            ),
+          )
         ],
       ),
     );

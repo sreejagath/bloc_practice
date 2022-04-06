@@ -24,7 +24,6 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('To-Do'),
               Obx(() => ListView.separated(
                   separatorBuilder: (context, index) => const Divider(),
                   itemCount: todoController.todo.isEmpty
@@ -33,16 +32,64 @@ class _MyHomePageState extends State<MyHomePage> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return todoController.todo.isEmpty
-                        ? const Center(
-                            child: Text('No to-do items'),
+                        ? SizedBox(
+                            height: Get.height * 0.5,
+                            child: const Center(
+                              child: Text('No to-do items'),
+                            ),
                           )
                         : ListTile(
                             onTap: (() {
-                              Get.to(TodoDetails(), arguments: todoController.todo[index]);
+                              Get.to(const TodoDetails(), arguments: {
+                                'todo': todoController.todo[index],
+                                'index': index
+                              });
                             }),
                             title: Text(todoController.todo[index].title),
                             subtitle:
                                 Text(todoController.todo[index].description),
+                            trailing: Container(
+                              width: Get.width * 0.3,
+                              height: 50,
+                              // decoration: BoxDecoration(
+                              //     color: todoController.todo[index].completed==true?Colors.green: Colors.red,
+                              //     borderRadius: BorderRadius.circular(5)),
+                              alignment: Alignment.center,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: Get.width * 0.16,
+                                    height: 20,
+                                    decoration: BoxDecoration(
+                                        color: todoController
+                                                    .todo[index].completed ==
+                                                true
+                                            ? Colors.green
+                                            : Colors.red,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      todoController.todo[index].completed ==
+                                              true
+                                          ? 'Done'
+                                          : 'Pending',
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      todoController.todo.removeAt(index);
+                                      Get.snackbar('Deleted', 'Item Deleted');
+                                    },
+                                    icon: Icon(Icons.delete),
+                                  )
+                                ],
+                              ),
+                            ),
                           );
                   }))
             ],
