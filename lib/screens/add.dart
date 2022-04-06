@@ -67,7 +67,7 @@ class AddScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // ignore: unnecessary_null_comparison
-          if (title.text.isNotEmpty && description.text.isNotEmpty && duration==const Duration(minutes: 0)) {
+          if (title.text.isNotEmpty && description.text.isNotEmpty && duration!=null) {
             Todo item = Todo(
               title: title.text,
               completed: false,

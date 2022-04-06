@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:machine_test/screens/add.dart';
+import 'package:machine_test/screens/details.dart';
 import 'package:machine_test/screens/home.dart';
 
 void main() {
@@ -22,6 +23,10 @@ class HomePage extends StatelessWidget {
         GetPage(
           name: '/add',
           page: () => AddScreen(),
+        ),
+        GetPage(
+          name: '/details',
+          page: () => const TodoDetails(),
         ),
       ],
       title: 'Flutter Demo',
