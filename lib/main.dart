@@ -27,7 +27,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -35,30 +34,38 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: const Text('To-Do'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ListView.builder(
-              itemCount: 10,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return CheckboxListTile(
-                  value: true,
-                  onChanged: (val) {
-                    setState(() {
-                      val = !val!;
-                    });
-                  },
-                  title: Text('Todo ${index+1}'),
-                );
-              })
-        ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text('To-Do'),
+              ListView.builder(
+                  itemCount: 10,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return CheckboxListTile(
+                      value: true,
+                      onChanged: (val) {
+                        setState(() {
+                          val = !val!;
+                        });
+                      },
+                      title: Text('Todo ${index + 1}'),
+                    );
+                  })
+            ],
+          ),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), 
+      ),
     );
   }
 }
