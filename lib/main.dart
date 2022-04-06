@@ -1,71 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:machine_test/screens/add.dart';
+import 'package:machine_test/screens/home.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const HomePage());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      initialRoute: '/',
+      getPages: [
+        GetPage(
+          name: '/',
+          page: () => const MyHomePage(),
+        ),
+        GetPage(
+          name: '/add',
+          page: () => AddScreen(),
+        ),
+      ],
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('To-Do'),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Text('To-Do'),
-              ListView.builder(
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return CheckboxListTile(
-                      value: true,
-                      onChanged: (val) {
-                        setState(() {
-                          val = !val!;
-                        });
-                      },
-                      title: Text('Todo ${index + 1}'),
-                    );
-                  })
-            ],
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
