@@ -134,13 +134,15 @@ class TodoDetails extends StatelessWidget {
             }),
             child: Container(
               height: 30,
-              width: Get.width*0.7,
+              width: Get.width * 0.7,
               alignment: Alignment.center,
               decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: Colors.grey
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  color: Colors.grey),
+              child: const Text(
+                'Mark Completed',
+                style: TextStyle(color: Colors.white),
               ),
-              child: const Text('Mark Completed', style: TextStyle(color: Colors.white),),
             ),
           )
         ],
