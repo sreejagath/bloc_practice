@@ -66,23 +66,30 @@ class AddScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          var createdAt = DateTime.now();
           // ignore: unnecessary_null_comparison
-          if (title.text.isNotEmpty && description.text.isNotEmpty && duration!=null) {
+          if (title.text.isNotEmpty &&
+              description.text.isNotEmpty &&
+              duration != null) {
             Todo item = Todo(
               title: title.text,
               completed: false,
               description: description.text,
-              duration: duration,
+              duration: duration.toString(),
+              createdAt: createdAt.toIso8601String(),
             );
-            todoController.todo.add(item);
+            //todoController.todo.add(item);
+            todoController.storeData(item);
             Get.back();
           } else {
-            Get.snackbar('Error', 'Enter all datas', 
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.blueGrey,
-            maxWidth: Get.width * 0.5,
-            colorText: Colors.white, 
-            borderRadius: 10,
+            Get.snackbar(
+              'Error',
+              'Enter all datas',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.blueGrey,
+              maxWidth: Get.width * 0.5,
+              colorText: Colors.white,
+              borderRadius: 10,
             );
           }
         },

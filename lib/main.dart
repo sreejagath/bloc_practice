@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:machine_test/screens/add.dart';
 import 'package:machine_test/screens/details.dart';
 import 'package:machine_test/screens/home.dart';
 
-void main() {
+Future<void> main() async {
   runApp(const HomePage());
+  await GetStorage.init();
 }
 
 class HomePage extends StatelessWidget {
