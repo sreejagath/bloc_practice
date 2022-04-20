@@ -6,8 +6,8 @@ import 'package:machine_test/screens/details.dart';
 import 'package:machine_test/screens/home.dart';
 
 Future<void> main() async {
-  runApp(const HomePage());
   await GetStorage.init();
+  runApp(const HomePage());
 }
 
 class HomePage extends StatelessWidget {

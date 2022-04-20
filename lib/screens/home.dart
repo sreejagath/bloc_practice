@@ -14,6 +14,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var todoController = Get.put(TodoController());
+    todoController.readTodos();
     return Scaffold(
       appBar: AppBar(
         title: const Text('To-Do'),
@@ -45,15 +46,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                 'index': index
                               });
                             }),
-                            title: Text(todoController.todo[index].title),
+                            title: Text(todoController.todo[index]['title']),
                             subtitle:
-                                Text(todoController.todo[index].description),
+                                Text(todoController.todo[index]['description']),
                             trailing: Container(
                               width: Get.width * 0.3,
                               height: 50,
-                              // decoration: BoxDecoration(
-                              //     color: todoController.todo[index].completed==true?Colors.green: Colors.red,
-                              //     borderRadius: BorderRadius.circular(5)),
                               alignment: Alignment.center,
                               child: Row(
                                 children: [
@@ -62,14 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 20,
                                     decoration: BoxDecoration(
                                         color: todoController
-                                                    .todo[index].completed ==
+                                                    .todo[index]['completed'] ==
                                                 true
                                             ? Colors.green
                                             : Colors.red,
                                         borderRadius: BorderRadius.circular(5)),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      todoController.todo[index].completed ==
+                                      todoController.todo[index]['completed'] ==
                                               true
                                           ? 'Done'
                                           : 'Pending',

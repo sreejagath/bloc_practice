@@ -8,12 +8,25 @@ class TodoController extends GetxController {
   var todo = [].obs;
   var box = GetStorage();
 
-  TodoController(){
-    todo.value = box.read('todo') ?? [];
+  TodoController() {
+    readTodos();
+  }
+
+  readTodos() async {
+    todo.clear();
+    var todos = await box.read('todo');
+    if (todos != null) {
+      todo.add(todos);
+    }
+    update();
   }
 
   storeData(Todo data) async {
-    //todo.add(data);
     await box.write('todo', data.toMap());
+    readTodos();
+  }
+
+  removeData(Todo data){
+    update();
   }
 }
