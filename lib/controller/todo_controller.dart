@@ -26,7 +26,9 @@ class TodoController extends GetxController {
     readTodos();
   }
 
-  removeData(Todo data){
+  removeData(Todo data)async{
+    todo.remove(data);
+    //await box.write('todo', todo);
     update();
   }
 }

@@ -59,8 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     width: Get.width * 0.16,
                                     height: 20,
                                     decoration: BoxDecoration(
-                                        color: todoController
-                                                    .todo[index]['completed'] ==
+                                        color: todoController.todo[index]
+                                                    ['completed'] ==
                                                 true
                                             ? Colors.green
                                             : Colors.red,
@@ -80,7 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ),
                                   IconButton(
                                     onPressed: () {
-                                      todoController.todo.removeAt(index);
+                                      // todoController.todo.removeAt(index);
+                                      todoController.removeData(
+                                          todoController.todo[index]);
                                       Get.snackbar('Deleted', 'Item Deleted');
                                     },
                                     icon: Icon(Icons.delete),
