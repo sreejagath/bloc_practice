@@ -41,13 +41,16 @@ class TodoDetails extends StatelessWidget {
     var _lastConso = DateTime.parse(arg['createdAt']).add(duration!);
     var diff = DateTime.now().difference(_lastConso);
     // if(_lastConso )
-    var now =  DateTime.now();
+    var now = DateTime.now();
     if (_lastConso.compareTo(now) > 0) {
       timeUp = true;
-    } else {
-      timeUp = false;
       remaining = _lastConso.difference(now);
       duration = _lastConso.difference(now);
+      print('Compare to now ${_lastConso.compareTo(now)}');
+    } else {
+      timeUp = false;
+      // remaining = _lastConso.difference(now);
+      // duration = _lastConso.difference(now);
     }
     return Scaffold(
       appBar: AppBar(
@@ -145,24 +148,25 @@ class TodoDetails extends StatelessWidget {
               ),
             ),
           ),
-          timeUp?
-          TweenAnimationBuilder<Duration>(
-              duration: duration!,
-              tween: Tween(begin: duration, end: Duration.zero),
-              onEnd: () {},
-              builder: (BuildContext context, Duration value, Widget? child) {
-                final minutes = value.inMinutes;
-                final seconds = value.inSeconds % 60;
-                return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 5),
-                    child: Text('$minutes:$seconds',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30)));
-              }):
-              const Text('Time Up',
+          timeUp
+              ? TweenAnimationBuilder<Duration>(
+                  duration: duration!,
+                  tween: Tween(begin: duration, end: Duration.zero),
+                  onEnd: () {},
+                  builder:
+                      (BuildContext context, Duration value, Widget? child) {
+                    final minutes = value.inMinutes;
+                    final seconds = value.inSeconds % 60;
+                    return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        child: Text('$minutes:$seconds',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30)));
+                  })
+              : const Text('Time Up',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Colors.black,
