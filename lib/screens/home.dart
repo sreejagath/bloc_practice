@@ -14,7 +14,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     var todoController = Get.put(TodoController());
-    todoController.readTodos();
+    //todoController.readTodos();
     return Scaffold(
       appBar: AppBar(
         title: const Text('To-Do'),

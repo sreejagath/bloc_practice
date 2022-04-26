@@ -16,7 +16,7 @@ class TodoDetails extends StatelessWidget {
     var todo = Get.find<TodoController>();
     Duration? duration;
     Duration? remaining;
-    var timeUp = false;
+    var timeUp = true;
 
     Duration parseDuration(String s) {
       int hours = 0;
@@ -174,7 +174,7 @@ class TodoDetails extends StatelessWidget {
                       fontSize: 30)),
           InkWell(
             onTap: (() {
-              todo.todo[index].completed = !todo.todo[index].completed;
+              todo.todo[index]['completed'] = !todo.todo[index]['completed'];
               //Get.back();
               Get.snackbar('Updated', 'Status Updated');
             }),

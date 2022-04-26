@@ -78,7 +78,8 @@ class AddScreen extends StatelessWidget {
               duration: duration.toString(),
               createdAt: createdAt.toIso8601String(),
             );
-            //todoController.todo.add(item);
+            // todoController.todoCopy.add(item);
+            // print('todoController.todoCopy: ${todoController.todoCopy}');
             todoController.storeData(item);
             Get.back();
           } else {
